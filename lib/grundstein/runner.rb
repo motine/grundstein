@@ -1,15 +1,29 @@
 require 'thor'
+require 'highline/import'
+
 module Grundstein
   class Runner < Thor
     desc :list, 'Lists all available templates.'
     def list
-      puts 'TODO'
+      answer = ask("What do you think?")
+      puts "You have answered: #{answer}"
+      puts "hello! #{HighLine.color('hello!', :green, :bold)}"
+      choose do |menu|
+        menu.prompt = "Please choose your favorite programming language? "
+        menu.choice :ruby do say("Good choice!") end
+        menu.choices(:python, :perl) do say("Not from around here, are you?") end
+      end
     end
     
     desc :add, 'Adds the given template to the current directory.'
-    def run
-      # TODO ask stuff
+    def add
+      # TODO ask stuff (https://github.com/JEG2/highline)
       # e.g.: gitignore will ask you if your intend to use Vagrant or Ruby or C...
+    end
+    
+    desc :update, 'Update the templates.'
+    def update
+      # re-check out the repository's templates folder
     end
   end
 end
