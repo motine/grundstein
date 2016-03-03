@@ -16,7 +16,10 @@ module Grundstein
     end
     
     desc :add, 'Runs the given generator in the current directory.'
-    def add
+    def add(generator_name)
+      env = GeneratorEnv.new
+      env.load_generator(generator_script_path(generator_name))
+      env.run
       # TODO ask stuff (https://github.com/JEG2/highline)
       # e.g.: gitignore will ask you if your intend to use Vagrant or Ruby or C...
     end
@@ -24,6 +27,16 @@ module Grundstein
     desc :update, 'Update the generators.'
     def update
       # re-check out the repository's templates folder
+    end
+    
+    protected
+    
+    def generator_path(generator_name)
+      return File.expand_path(File.join('..', '..', '..', 'generators', generator_name, __FILE__)
+    end
+    
+    def generator_script_path(generator_name)
+      return File.join(generator_path(generator_name), '_generator.rb')
     end
   end
 end
