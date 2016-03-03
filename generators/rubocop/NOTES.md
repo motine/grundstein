@@ -1,4 +1,4 @@
-Documentation & Conventions
+Documentation & Conventions (put this into a README.Contibute.md)
 
 To know where to find stuff, please see the mapping of content to files:
 Overview and concept goes into README.Something.md files in the respective sub-folder (e.g. README.Scenes.md, can be found in yardoc's File List) <!-- This naming will be recognized by yardoc (not overwriting the top level readme) and by Gitlab (directly showing the Readme when entering the folder)-->
@@ -11,7 +11,8 @@ When running the cops, it will show a link where you can get more information:
 In your code you sometimes may want to disable some cops. Either
 - disable them for a particular line/method/class with: `# rubocop:disable Metrics/LineLength, Style/StringLiterals`
 - or disable rubocop for the full file: `# rubocop:disable all`
-`rubocop --auto-gen-config`
+
+use `rubocop --auto-gen-config` and then inherit from this.
 
 
 Rakefile:
