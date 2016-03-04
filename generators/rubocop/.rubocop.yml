@@ -1,0 +1,53 @@
+# See a complete description of the checks (named "cops") here: https://github.com/bbatsov/rubocop/blob/master/config/default.yml
+AllCops:
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+    
+# Metrics/LineLength:
+#   Enabled: false
+#
+# Style/StringLiterals:
+#   Enabled: false
+#
+# Style/SpaceAroundEqualsInParameterDefault:
+#   Enabled: false
+#
+# Style/RedundantReturn:
+#   Enabled: false
+#
+# Style/BracesAroundHashParameters:
+#   Enabled: false
+#
+# Style/RedundantSelf:
+#   Enabled: false
+#
+# Style/SignalException:
+#   Enabled: false
+#
+# Style/EachWithObject:
+#   Enabled: false
+#
+# Style/RegexpLiteral:
+#   Enabled: false
+#
+# Style/ClassVars: # TODO re-enable this
+#   Enabled: false
+#
+# Metrics/AbcSize:
+#   Enabled: false
+#
+# Style/TrailingUnderscoreVariable:
+#   Enabled: false
+#
+# Style/NegatedWhile:
+#   Enabled: false
+#
+# Style/WordArray:
+#   Enabled: false
+  
+# --- if rails:
+#   Style/Documentation:
+#     Enabled: false
+#   Rails:
+#     Enabled: true
+#
