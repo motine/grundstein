@@ -26,7 +26,12 @@ gem install grundstein
 
 ## Usage
 
+**Assumption**: The project root folder is determined by the current working directory. If in there is no `.git` directory, the script will try to move up and up until it finds `.git`.
 TODO: Write usage instructions here
+
+# Development
+
+<!-- move to README.Development.md -->
 
 ## How generators work
 
@@ -38,6 +43,16 @@ Directories starting with `.` or `#` are ignored. All others must have a `_gener
 - can be arbitrary other methods or declarations.
 
 <!-- EXAMPLES -->
+
+## Testing
+
+```bash
+# you should test your generators in a new project
+cd /tmp/
+git init myproject
+cd myproject/
+RUBYLIB='/vagrant/lib:$RUBYLIB' bin/grundstein add rubocop
+```
 
 ## Contributing
 <!-- document the order of runner -> loader -> environment -->

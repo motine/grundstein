@@ -1,6 +1,7 @@
 module Grundstein::Generator
   class Loader
     SCRIPT_NAME = '_generator.rb'
+    DIR_EXPECTED_IN_PROJECT_ROOT = '.git'
     
     def initialize(generator_name)
       @generator_name = generator_name
@@ -9,7 +10,11 @@ module Grundstein::Generator
 
     def run
       raise GeneratorMalformedError, "Generator script '#{@generator_name}' does not have a 'run' method." unless @env.respond_to?(:run)
-      @env.run
+      begin
+        @env.run(generator_path, Dir.pwd, project_root_path)
+      rescue => e
+        raise GeneratorRunError, "[#{@generator_name}] #{e.message}"
+      end
     end
     
     def name
@@ -44,7 +49,7 @@ module Grundstein::Generator
     end
 
     def self.generators_path
-      return File.join(Grundstein.lib_path, '..', 'generators')
+      return File.absolute_path(File.join(Grundstein.lib_path, '..', 'generators'))
     end
     def generator_path
       return File.join(self.class.generators_path, @generator_name)
@@ -52,6 +57,15 @@ module Grundstein::Generator
   
     def generator_script_path
       return File.join(self.generator_path, SCRIPT_NAME)
+    end
+    
+    def project_root_path
+      dir = Dir.pwd
+      loop do
+        raise GeneratorRunError, "Could not determine project path (no .git found here or above)." if dir == '/'
+        return dir if Dir.exist?(File.join(dir, DIR_EXPECTED_IN_PROJECT_ROOT))
+        dir = File.dirname(dir)
+      end
     end
   end
 end

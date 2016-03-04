@@ -8,14 +8,6 @@ module Grundstein
     
     desc :list, 'Lists all available generators.'
     def list
-      # answer = ask("What do you think?")
-      # puts "You have answered: #{answer}"
-      # puts "hello! #{HighLine.color('hello!', :green, :bold)}"
-      # choose do |menu|
-      #   menu.prompt = "Please choose your favorite programming language? "
-      #   menu.choice :ruby do say("Good choice!") end
-      #   menu.choices(:python, :perl) do say("Not from around here, are you?") end
-      # end
       Generator::Loader.list do |name, desc|
         puts "  #{name.ljust(20).c_gen} #{desc}"
       end
