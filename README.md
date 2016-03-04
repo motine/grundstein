@@ -42,7 +42,14 @@ Directories starting with `.` or `#` are ignored. All others must have a `_gener
 - must be a `def info` method which returns a hash with at least `{desc: '....'}`.
 - can be arbitrary other methods or declarations.
 
-<!-- EXAMPLES -->
+<!-- EXAMPLES for generator scripts -->
+
+In the run method, you have available to you:
+
+```ruby
+@generator_path, @working_path, @project_path
+```
+
 
 ## Testing
 

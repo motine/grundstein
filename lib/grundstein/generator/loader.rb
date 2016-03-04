@@ -1,5 +1,7 @@
 module Grundstein::Generator
   class Loader
+    using Grundstein::Refinements::ColoredStrings
+    
     SCRIPT_NAME = '_generator.rb'
     DIR_EXPECTED_IN_PROJECT_ROOT = '.git'
     
@@ -11,7 +13,14 @@ module Grundstein::Generator
     def run
       raise GeneratorMalformedError, "Generator script '#{@generator_name}' does not have a 'run' method." unless @env.respond_to?(:run)
       begin
-        @env.run(generator_path, Dir.pwd, project_root_path)
+        wp = Dir.pwd
+        prp = project_root_path
+        puts "Running #{@generator_name.c_gen}"
+        puts "Working path: #{wp}"
+        puts "Project path: #{prp}"
+        @env.set_context(generator_path: generator_path, working_path: wp, project_path: prp)
+        @env.run
+        puts @env.caveats.c_warning
       rescue => e
         raise GeneratorRunError, "[#{@generator_name}] #{e.message}"
       end
