@@ -6,5 +6,6 @@ module Grundstein
   end
 end
 
+require_relative 'grundstein/refinements'
 require_relative 'grundstein/generator'
 require_relative 'grundstein/runner'

@@ -1,8 +1,11 @@
 require 'thor'
 require 'highline/import'
 
+
 module Grundstein
   class Runner < Thor
+    using Grundstein::Refinements::ColoredStrings
+    
     desc :list, 'Lists all available generators.'
     def list
       # answer = ask("What do you think?")
@@ -16,7 +19,7 @@ module Grundstein
       
       # TODO extend string to have color names
       Generator::Loader.list do |name, desc|
-        puts "  #{name.ljust(20)} #{desc}"
+        puts "  #{name.ljust(20).c_gen} #{desc}"
       end
     rescue Generator::GeneratorError => e
       puts "ERROR: #{e.to_s}"
