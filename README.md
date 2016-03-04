@@ -16,6 +16,7 @@ These templates are (in Rails fashion) called generators.
 - Ask the user what he/she wants (e.g. "Do you intend to use Rails?").
 - Generate rather more useful stuff than too few: A user ca delete quicker than adding new stuff.
 - Show the user what is happening and what needs to be done next.
+- Append don't replace.
 
 ## Installation
 
@@ -27,8 +28,17 @@ gem install grundstein
 
 TODO: Write usage instructions here
 
-## Contributing
+## How generators work
 
+Each generator has a directory in the `generators` folder. The name is determined by the directory's name.
+Directories starting with `.` or `#` are ignored. All others must have a `_generator.rb` file. In there:
+
+- must be a `def run` method.
+- must be a `def info` method which returns a string.
+- can be arbitrary other methods or declarations.
+
+## Contributing
+<!-- document the order of runner -> loader -> environment -->
 When developing (the gem is not installed yet), please use `RUBYLIB='/vagrant/lib:$RUBYLIB' bin/grundstein`  to run the project (assuming your project lives in `/vagrant`).
 
 1. Fork it ( https://github.com/motine/grundstein/fork )
