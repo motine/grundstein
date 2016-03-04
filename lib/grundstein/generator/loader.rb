@@ -8,7 +8,7 @@ module Grundstein::Generator
     end
 
     def run
-      raise GeneratorMethodMissingError, "Generator script '#{@generator_name}' does not have a 'run' method." unless @env.respond_to?(:run)
+      raise GeneratorMalformedError, "Generator script '#{@generator_name}' does not have a 'run' method." unless @env.respond_to?(:run)
       @env.run
     end
     
@@ -17,8 +17,10 @@ module Grundstein::Generator
     end
     
     def info
-      raise GeneratorMethodMissingError, "Generator script '#{@generator_name}' does not have an 'info' method." unless @env.respond_to?(:info)
-      @env.info
+      raise GeneratorMalformedError, "Generator script '#{@generator_name}' does not have an 'info' method." unless @env.respond_to?(:info)
+      info = @env.info
+      raise GeneratorMalformedError, "Generator script '#{@generator_name}' does include :desc in the 'info' result." unless info.is_a?(Hash) && info[:desc].is_a?(String)
+      return info
     end
     
     # Iteratates through all generators and yields the block with the |name, desc|.
@@ -26,7 +28,7 @@ module Grundstein::Generator
       Dir.foreach(generators_path) do |gen_dir|
         next if gen_dir.start_with?('.') || gen_dir.start_with?('#')
         gen = self.new(gen_dir)
-        yield gen.name, gen.info
+        yield gen.name, gen.info[:desc]
       end
     end
 

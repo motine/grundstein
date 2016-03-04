@@ -4,5 +4,7 @@ def run
 end
 
 def info
-  return 'add rubocop'
+  return {
+    desc: 'add rubocop'
+  }
 end

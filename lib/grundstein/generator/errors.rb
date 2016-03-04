@@ -3,6 +3,6 @@ module Grundstein::Generator
   end
   class GeneratorNotFoundError < GeneratorError
   end
-  class GeneratorMethodMissingError < GeneratorError
+  class GeneratorMalformedError < GeneratorError
   end
 end

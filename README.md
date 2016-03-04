@@ -34,8 +34,10 @@ Each generator has a directory in the `generators` folder. The name is determine
 Directories starting with `.` or `#` are ignored. All others must have a `_generator.rb` file. In there:
 
 - must be a `def run` method.
-- must be a `def info` method which returns a string.
+- must be a `def info` method which returns a hash with at least `{desc: '....'}`.
 - can be arbitrary other methods or declarations.
+
+<!-- EXAMPLES -->
 
 ## Contributing
 <!-- document the order of runner -> loader -> environment -->
