@@ -2,6 +2,14 @@
 AllCops:
   DisplayCopNames: true
   DisplayStyleGuide: true
+
+{{#rails?}}
+Rails:
+  Enabled: true
+
+# Style/Documentation:
+#   Enabled: false
+{{/rails?}}
     
 # Metrics/LineLength:
 #   Enabled: false
@@ -45,9 +53,3 @@ AllCops:
 # Style/WordArray:
 #   Enabled: false
   
-# --- if rails:
-#   Style/Documentation:
-#     Enabled: false
-#   Rails:
-#     Enabled: true
-#
