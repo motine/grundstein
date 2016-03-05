@@ -38,9 +38,6 @@ Rails:
 # Style/RegexpLiteral:
 #   Enabled: false
 #
-# Style/ClassVars: # TODO re-enable this
-#   Enabled: false
-#
 # Metrics/AbcSize:
 #   Enabled: false
 #

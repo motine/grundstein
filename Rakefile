@@ -1,2 +1,8 @@
 require "bundler/gem_tasks"
 
+begin
+  require 'rubocop/rake_task'
+  RuboCop::RakeTask.new
+rescue LoadError => _
+  STDERR.puts "Rubocop rake tasks not added, because gem not available." # you can remove this note if you want
+end
