@@ -1,4 +1,6 @@
+{{#new_file?}}
 source 'https://rubygems.org'
+{{/new_file?}}
 
 group :development do
   gem 'rubocop', require: false

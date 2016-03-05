@@ -1,31 +1,26 @@
 def run
-  # TODO ask for rails and add it to the template variables (e.g. `template_context('rails?', true)` )
-  # p @generator_path, @working_path, @project_path
-  #
-  # TODO template('.rubocop.yml') # (introduce mustache)
-  # TODO handle existing files: append, skip, overwrite, print (and ask again)
-  
-  # answer = ask("What do you think?")
-  # puts "You have answered: #{answer}"
-  # puts "hello! #{HighLine.color('hello!', :green, :bold)}"
-  # choose do |menu|
-  #   menu.prompt = "Please choose your favorite programming language? "
-  #   menu.choice :ruby do say("Good choice!") end
-  #   menu.choices(:python, :perl) do say("Not from around here, are you?") end
-  # end
+  template_context("rails?", agree("Do you intend to use Rails?  "))
+  template('.rubocop.yml')
+  template('Gemfile', assume_append: true)
+  template('Rakefile', assume_append: true)
+  template('README.Development.md', assume_append: true)
 end
 
 def caveats
   res = <<CAVEATS
-TODO
-# use `rubocop --auto-gen-config` and then inherit from this.
-# in your CI, you may want to ...
-#     - bundle exec rubocop
+Please run `bundle install` in your project.
+  
+You can use `rubocop --auto-gen-config` to automatically create `.rubocop_todo.yml`.
+In your `.rubocop.yml` you can then add `inherit_from: .rubocop_todo.yml` to include it.
+More info: https://github.com/bbatsov/rubocop#automatically-generated-configuration
+
+
+If you are using a CI, you may want to include something like `bundle exec rubocop`.
 CAVEATS
   return res
 end
 
-def info
+def spec
   return {
     desc: 'adds rubocop to Gemfile and Rakefile'
   }

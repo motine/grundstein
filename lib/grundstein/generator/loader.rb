@@ -18,10 +18,13 @@ module Grundstein::Generator
         puts "Running #{@generator_name.c_gen}"
         puts "Working path: #{wp}"
         puts "Project path: #{prp}"
+        puts
         @env.set_context(generator_path: generator_path, working_path: wp, project_path: prp)
         @env.run
+        puts
         puts @env.caveats.c_warning
       rescue => e
+        raise e
         raise GeneratorRunError, "[#{@generator_name}] #{e.message}"
       end
     end
@@ -31,10 +34,10 @@ module Grundstein::Generator
     end
     
     def info
-      raise GeneratorMalformedError, "Generator script '#{@generator_name}' does not have an 'info' method." unless @env.respond_to?(:info)
-      info = @env.info
-      raise GeneratorMalformedError, "Generator script '#{@generator_name}' does include :desc in the 'info' result." unless info.is_a?(Hash) && info[:desc].is_a?(String)
-      return info
+      raise GeneratorMalformedError, "Generator script '#{@generator_name}' does not have an 'info' method." unless @env.respond_to?(:spec)
+      spec = @env.spec
+      raise GeneratorMalformedError, "Generator script '#{@generator_name}' does include :desc in the 'info' result." unless spec.is_a?(Hash) && spec[:desc].is_a?(String)
+      return spec
     end
     
     # Iteratates through all generators and yields the block with the |name, desc|.

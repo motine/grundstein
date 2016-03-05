@@ -39,7 +39,8 @@ Each generator has a directory in the `generators` folder. The name is determine
 Directories starting with `.` or `#` are ignored. All others must have a `_generator.rb` file. In there:
 
 - must be a `def run` method.
-- must be a `def info` method which returns a hash with at least `{desc: '....'}`.
+- must be a `def spec` method which returns a hash with at least `{desc: '....'}`.
+- may have a `def caveats` method which returns a string to be displayed after the generator has run.
 - can be arbitrary other methods or declarations.
 
 <!-- EXAMPLES for generator scripts -->
@@ -49,6 +50,15 @@ In the run method, you have available to you:
 ```ruby
 @generator_path, @working_path, @project_path
 ```
+
+In templates you always can query for
+
+- `existed?` if the file was already there
+- `project_path`, more precisely all variables (@generator_path, etc.) are available to the template
+- and you can use `template_context(name, value)` to add stuff from the generator (use a question mark at the end of the name for boolean values).
+
+<!-- TODO example templates with sections-->
+
 
 
 ## Testing
