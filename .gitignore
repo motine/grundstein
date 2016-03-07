@@ -10,3 +10,4 @@
 /tmp/
 *.bundle
 mkmf.log
+doc/api

@@ -18,6 +18,8 @@ These templates are (in Rails fashion) called generators.
 - Show the user what is happening and what needs to be done next.
 - Append don't replace.
 
+**Pro Tip**: Commit before running generators. Then review the changes via `git diff` or a [visual git tool](https://desktop.github.com/).
+
 ## Installation
 
 ```bash
@@ -80,3 +82,4 @@ When developing (the gem is not installed yet), please use `RUBYLIB='/vagrant/li
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
 5. Create a new Pull Request
+
