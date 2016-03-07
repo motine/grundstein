@@ -1,0 +1,5 @@
+{{#new_file?}}
+source 'https://rubygems.org'
+{{/new_file?}}
+
+gem 'sdoc', '~> 0.4.1'
