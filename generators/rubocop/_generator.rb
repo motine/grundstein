@@ -22,6 +22,6 @@ end
 
 def spec
   return {
-    desc: 'adds rubocop to Gemfile and Rakefile'
+    desc: 'rubocop style checker'
   }
 end

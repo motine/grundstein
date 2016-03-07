@@ -1,4 +1,5 @@
 require 'mustache'
+require 'fileutils'
 
 module Grundstein
   module Generator
@@ -37,6 +38,20 @@ module Grundstein
       # add a variable (`name`) with the given value to all future template contexts
       def template_context(name, value)
         @template_vars[name] = value
+      end
+
+      # Ensures that the project has the directory given.
+      # This method returns if the directory already existed.
+      def directory(relative_project_path)
+        path = File.expand_path(relative_project_path, @project_path)
+        exists = Dir.exists?(path)
+        if exists
+          info("EXIST", path)
+        else
+          info("CREATE", path)
+          FileUtils.mkdir_p(path)
+        end
+        return exists
       end
 
       # Convenience method for the generator
