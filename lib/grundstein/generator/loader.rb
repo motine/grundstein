@@ -40,13 +40,8 @@ module Grundstein
         return spec
       end
 
-      # Iteratates through all generators and yields the block with the |name, desc|.
-      def self.list(&_block)
-        Dir.foreach(generators_path) do |gen_dir|
-          next if gen_dir.start_with?('.', '#')
-          gen = self.new(gen_dir)
-          yield gen.name, gen.info[:desc]
-        end
+      def desc
+        return info[:desc]
       end
 
       protected
@@ -61,12 +56,8 @@ module Grundstein
         return env
       end
 
-      def self.generators_path # rubocop:disable Lint/IneffectiveAccessModifier
-        return File.absolute_path(File.join(Grundstein.lib_path, '..', 'generators'))
-      end
-
       def generator_path
-        return File.join(self.class.generators_path, @generator_name)
+        return Generator::Repository.instance.generator_path(@generator_name)
       end
 
       def generator_script_path

@@ -2,4 +2,4 @@
 # -*- mode: ruby -*-
 
 require 'grundstein'
-Grundstein::Runner.start(ARGV)
+Grundstein::Runner.start

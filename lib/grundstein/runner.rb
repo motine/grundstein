@@ -7,8 +7,9 @@ module Grundstein
 
     desc :list, 'Lists all available generators.'
     def list
-      Generator::Loader.list do |name, desc|
-        puts "  #{name.ljust(20).c_gen} #{desc}"
+      Generator::Repository.instance.generators.each do |name|
+        gen = Generator::Loader.new(name)
+        puts "  #{gen.name.ljust(20).c_gen} #{gen.desc}"
       end
     rescue Generator::GeneratorError => e
       puts "ERROR: #{e.to_s.c_error}"
@@ -23,10 +24,5 @@ module Grundstein
       # TODO: ask stuff (https://github.com/JEG2/highline)
       # e.g.: gitignore will ask you if your intend to use Vagrant or Ruby or C...
     end
-
-    # desc :update, 'Update the generators.'
-    # def update
-    #   # re-check out the repository's templates folder
-    # end
   end
 end

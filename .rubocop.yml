@@ -5,6 +5,9 @@ AllCops:
   Exclude:
     - 'generators/**/*'
 
+Style/Documentation: # TODO reenable
+  Enabled: false
+
 Metrics/LineLength:
   Enabled: false
 

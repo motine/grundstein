@@ -44,7 +44,7 @@ module Grundstein
       # This method returns if the directory already existed.
       def directory(relative_project_path)
         path = File.expand_path(relative_project_path, @project_path)
-        exists = Dir.exists?(path)
+        exists = Dir.exist?(path)
         if exists
           info("EXIST", path)
         else
@@ -76,8 +76,16 @@ module Grundstein
             menu.layout = :one_line
             menu.choice(:append) {}
             menu.choice(:overwrite) { append = false }
-            menu.choice(:skip) { info("SKIP", destination_path); return }
-            menu.choice(:print) { puts ">>>" * 20 + destination_path; puts rendered_template; puts "<<<" * 20 + destination_path; return }
+            menu.choice(:skip) do
+              info("SKIP", destination_path)
+              return
+            end
+            menu.choice(:print) do
+              puts ">>>" * 20 + destination_path
+              puts rendered_template
+              puts "<<<" * 20 + destination_path
+              return
+            end
           end
           puts
         end
