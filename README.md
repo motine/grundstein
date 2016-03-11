@@ -1,6 +1,6 @@
 # Grundstein
 
-[![GitHub license](https://img.shields.io/github/license/motine/grunstein.svg?style=flat-square)]()
+[![GitHub license](https://img.shields.io/github/license/motine/grundstein.svg?style=flat-square)]()
 [![Gem](https://img.shields.io/gem/v/grundstein.svg?style=flat-square)]()
 
 I was annoyed to do the same work over and over.
