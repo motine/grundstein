@@ -11,3 +11,4 @@
 *.bundle
 mkmf.log
 doc/api
+grundstein-*.gem
