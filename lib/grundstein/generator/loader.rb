@@ -13,18 +13,16 @@ module Grundstein
       def initialize(generator_name)
         @generator_name = generator_name
         @env = load_environment
-        @env.set_context(generator_path: generator_path, working_path: wp, project_path: prp)
+        @env.set_context(generator_path: generator_path, working_path: working_path, project_path: project_root_path)
       end
 
       # Executes the generator's run method.
       def run # rubocop:disable Metrics/MethodLength
         raise GeneratorMalformedError, "Generator script '#{@generator_name}' does not have a 'run' method." unless @env.respond_to?(:run)
         begin
-          wp = Dir.pwd
-          prp = project_root_path
           puts "Running #{@generator_name.c_gen}"
-          puts "Working path: #{wp}"
-          puts "Project path: #{prp}"
+          puts "Working path: #{working_path}"
+          puts "Project path: #{project_root_path}"
           puts
           @env.run
           puts
@@ -62,6 +60,10 @@ module Grundstein
         return env
       end
 
+      def working_path
+        return Dir.pwd
+      end
+
       def generator_path
         return Generator::Repository.instance.generator_path(@generator_name)
       end
@@ -71,10 +73,14 @@ module Grundstein
       end
 
       def project_root_path
+        return @project_root_path unless @project_root_path.nil?
         dir = Dir.pwd
         loop do
           raise GeneratorRunError, "Could not determine project path (no .git found here or above)." if dir == '/'
-          return dir if Dir.exist?(File.join(dir, DIR_EXPECTED_IN_PROJECT_ROOT))
+          if Dir.exist?(File.join(dir, DIR_EXPECTED_IN_PROJECT_ROOT))
+            @project_root_path = dir
+            return dir
+          end
           dir = File.dirname(dir)
         end
       end
