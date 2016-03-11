@@ -121,6 +121,15 @@ cd myproject/
 RUBYLIB='/vagrant/lib:$RUBYLIB' bin/grundstein add rubocop
 ```
 
+## Publishing
+
+```bash
+gem build grundstein.gemspec
+#gem install grundstein
+gem push grundstein-*.gem
+#gem uninstall grundstein
+```
+
 ## API documentation
 
 We are using the [sdoc](https://github.com/voloko/sdoc) generator which is based on [rdoc](https://github.com/rdoc/rdoc).
