@@ -4,6 +4,6 @@ require_relative 'generator/environment'
 require_relative 'generator/loader'
 
 module Grundstein
-  module Generator
+  module Generator # rubocop:disable Style/Documentation
   end
 end

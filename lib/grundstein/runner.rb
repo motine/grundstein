@@ -2,6 +2,7 @@ require 'thor'
 require 'highline/import'
 
 module Grundstein
+  # Entry point for the command line interface.
   class Runner < Thor
     using Grundstein::Refinements::ColoredStrings
 

@@ -3,6 +3,10 @@ require 'fileutils'
 
 module Grundstein
   module Generator
+    # This class is used to create the envrionment for the generator file.
+    # This class is instanciated by the Generator::Loader.
+    # Then `extend_from_file` is called. This will then load all methods available in that file into this object.
+    # From there on the Loader can interact with the generator (e.g. call `run`)
     class Environment
       using Grundstein::Refinements::ColoredStrings
 
@@ -10,8 +14,8 @@ module Grundstein
         @template_vars = {}
       end
 
-      # takes a kwargs and sets instance variables in the environment
-      # called from loader
+      # Takes a kwargs and sets instance variables in the environment and makes them available as template variables.
+      # Called by Generator::Loader.
       def set_context(**vars) # rubocop:disable Style/AccessorMethodName
         vars.each do |var, value|
           self.instance_variable_set("@#{var}".to_sym, value)
@@ -19,23 +23,23 @@ module Grundstein
         end
       end
 
-      # loads the script from the given path and adds the methods to this class
-      # called from loader
+      # Loads the script from the given path and adds the methods to this class.
+      # Called by Generator::Loader.
       def extend_from_file(path)
         self.instance_eval(File.read(path))
       end
 
-      # this may be overridden by the _generator
-      # returns a
+      # This may be overridden by the `_generator.rb`.
       def caveats
         return ''
       end
 
+      # Prints out a message.
       def info(action, message)
         puts "  #{action.ljust(10).c_info} #{message}"
       end
 
-      # add a variable (`name`) with the given value to all future template contexts
+      # Sets a variable with the given `name` and `value` to be available for all future templates.
       def template_context(name, value)
         @template_vars[name] = value
       end
@@ -55,6 +59,7 @@ module Grundstein
       end
 
       # Convenience method for the generator
+      # Processes the template found at `relative_project_path` and copies it to the project.
       # Relative_template_path determines the path of the template relative to the generator's root
       # If `destination_path` is nil, the destination path will be determined by appending `relative_template_path` to `@project_path`.
       # If `destination_path` is given, it may be an absolute path or a relative path (to `@project_path`).

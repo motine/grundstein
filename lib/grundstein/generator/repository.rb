@@ -2,15 +2,13 @@ require 'git'
 
 module Grundstein
   module Generator
-    # Manages the generator repository. Implemented as a singleton
+    # Manages the generator repository. Implemented as a singleton (see `instance` method).
     # It uses git to keep the repository up to date.
     # It will check the repo out to '~/.grundstein'.
     # It also creates a file in this directory named 'last_update' where the timestamp of the last update is kept.
     # If this time stamp is too long ago, it will update the repo.
     #
-    # Use this class with:
-    #     Generator::Repository.instance.update
-
+    # Use this class by using the instance method: `Generator::Repository.instance`
     class Repository
       OUTDATED_THRESHOLD = 1 # day(s)
 

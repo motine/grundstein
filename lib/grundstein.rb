@@ -1,6 +1,6 @@
 require_relative 'grundstein/version'
 
-module Grundstein
+module Grundstein # rubocop:disable Style/Documentation
   def self.lib_path
     File.expand_path('..', __FILE__)
   end

@@ -1,16 +1,22 @@
 module Grundstein
   module Generator
+    # This class encapsulates the logic to load a generator.
+    # It sets up a Generator::Envrionment and interacts with it.
+    # It is also responsible to determine paths.
     class Loader
       using Grundstein::Refinements::ColoredStrings
 
       SCRIPT_NAME = '_generator.rb'.freeze
       DIR_EXPECTED_IN_PROJECT_ROOT = '.git'.freeze
 
+      # Loads the generator.
       def initialize(generator_name)
         @generator_name = generator_name
         @env = load_environment
+        @env.set_context(generator_path: generator_path, working_path: wp, project_path: prp)
       end
 
+      # Executes the generator's run method.
       def run # rubocop:disable Metrics/MethodLength
         raise GeneratorMalformedError, "Generator script '#{@generator_name}' does not have a 'run' method." unless @env.respond_to?(:run)
         begin
@@ -20,7 +26,6 @@ module Grundstein
           puts "Working path: #{wp}"
           puts "Project path: #{prp}"
           puts
-          @env.set_context(generator_path: generator_path, working_path: wp, project_path: prp)
           @env.run
           puts
           puts @env.caveats.c_warning
@@ -40,6 +45,7 @@ module Grundstein
         return spec
       end
 
+      # short hand for info[:desc]
       def desc
         return info[:desc]
       end
