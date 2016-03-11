@@ -4,8 +4,6 @@ module Grundstein
     # It sets up a Generator::Envrionment and interacts with it.
     # It is also responsible to determine paths.
     class Loader
-      using Grundstein::Refinements::ColoredStrings
-
       SCRIPT_NAME = '_generator.rb'.freeze
       DIR_EXPECTED_IN_PROJECT_ROOT = '.git'.freeze
 

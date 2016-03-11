@@ -12,8 +12,6 @@ module Grundstein
     class Repository
       OUTDATED_THRESHOLD = 1 # day(s)
 
-      using Grundstein::Refinements::ColoredStrings
-
       def self.instance
         @instance ||= Repository.new(File.expand_path("~/.grundstein"))
         return @instance

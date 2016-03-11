@@ -24,7 +24,7 @@ These templates are (in Rails fashion) called generators.
 
 ## Installation
 
-Please make sure you have `git >= 1.7` installed. Then run:
+Please make sure you have `ruby >= 2.0.0` and `git >= 1.7` installed. Then run:
 
 ```bash
 gem install grundstein

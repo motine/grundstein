@@ -8,8 +8,6 @@ module Grundstein
     # Then `extend_from_file` is called. This will then load all methods available in that file into this object.
     # From there on the Loader can interact with the generator (e.g. call `run`)
     class Environment
-      using Grundstein::Refinements::ColoredStrings
-
       def initialize
         @template_vars = {}
       end

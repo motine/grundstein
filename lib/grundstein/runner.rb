@@ -4,8 +4,6 @@ require 'highline/import'
 module Grundstein
   # Entry point for the command line interface.
   class Runner < Thor
-    using Grundstein::Refinements::ColoredStrings
-
     desc :list, 'Lists all available generators.'
     def list
       Generator::Repository.instance.generators.each do |name|
