@@ -1,0 +1,42 @@
+# -*- mode: ruby -*-
+
+# PLEASE NOTE: make sure to install vbguest if you use VirtualBox (`vagrant plugin install vagrant-vbguest`).
+
+NAME = File.basename(File.dirname(__FILE__)).gsub('_', '-').gsub(/[^\w]/, '')
+
+FIX_TIME = <<SCRIPT
+timedatectl set-timezone Europe/Berlin # fix wrong time
+dnf install -y ntp
+sudo systemctl enable ntpd
+sudo systemctl start ntpd
+SCRIPT
+
+DEPS = <<SCRIPT
+dnf install -y vim
+dnf install -y ruby ruby-devel rubygem-bundler
+pushd /vagrant
+bundle install
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  config.vm.hostname = NAME
+  config.vm.box = "fedora/23-cloud-base"
+
+  config.vm.provision :shell, inline: FIX_TIME, keep_color: true
+  config.vm.provision :shell, inline: DEPS, keep_color: true
+
+  config.vm.network "forwarded_port", guest: 4000, host: 4000
+
+  config.vm.provider "virtualbox" do |vb, override|
+    override.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+    vb.name = NAME
+    vb.memory = 2048
+    vb.cpus = 2
+  end
+
+  config.vm.provider :libvirt do |libvirt, override|
+    override.vm.synced_folder "./", "/vagrant", { nfs: true } # Automatic folder sync does not work with libvirt. We can either use 'vagrant rsync-auto' or use nfs. We chose nfs, because it works both ways.
+    libvirt.memory = 2048
+    libvirt.cpus = 2
+  end
+end

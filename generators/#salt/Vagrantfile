@@ -1,0 +1,7 @@
+SALT = <<SCRIPT
+dnf -y update
+dnf -y install salt-minion git # we also need git to make salt succeed
+salt-call --local --file-root=/vagrant/salt/ state.highstate
+SCRIPT
+
+# config.vm.provision :shell, inline: SALT, keep_color: true
