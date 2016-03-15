@@ -11,9 +11,15 @@ module Grundstein
     # Use this class by using the instance method: `Generator::Repository.instance`
     class Repository
       OUTDATED_THRESHOLD = 1 # day(s)
+      REPO_URL = 'https://github.com/motine/grundstein.git'
+      
+      def self.use_gem_repo!
+        @use_gem_repo = true
+        raise "Can not change repo path after the first call of instance."unless @instance.nil?
+      end
 
       def self.instance
-        @instance ||= Repository.new(File.expand_path("~/.grundstein"))
+        @instance ||= Repository.new
         return @instance
       end
 
@@ -39,9 +45,13 @@ module Grundstein
 
       # The constructor will check if the repository is there and create it if necessary.
       # If the repo is outdated, it will update it.
-      def initialize(path)
-        @path = path
-        @git = Git.open(@path) # , :log => Logger.new(STDOUT))
+      def initialize
+        unless ENV['USE_GEM_REPO'].nil?
+          @path = File.expand_path('../../../../', __FILE__)
+          return
+        end
+        @path = File.expand_path("~/.grundstein")
+        @git = Git.open(@path)# , :log => Logger.new(STDOUT))
         update if outdated?
       rescue ArgumentError => _
         setup
@@ -63,7 +73,7 @@ module Grundstein
       def setup
         puts "Initializing generator repository...".c_warning
         @git = Git.init(@path)
-        @git.add_remote('origin', 'https://github.com/motine/grundstein.git')
+        @git.add_remote('origin', REPO_URL)
 
         # TODO: make sure git > 1.7
         # let's only checkout the generators

@@ -49,7 +49,7 @@ The generator script is guaranteed to include:
 ```ruby
 @generator_path # root path of the generator e.g. `.../generators/sdoc/`
 @working_path # path of the current working directory (may be != to @project_path)
-@project_path # root path of the project (with the .git in it)
+@project_path # root path of the project (the folder containing the .git directory)
 
 # Ensures that the project has the directory given.
 # This method returns if the directory already existed.
@@ -118,15 +118,16 @@ gem 'rails'
 cd /tmp/
 git init myproject
 cd myproject/
-RUBYLIB='/vagrant/lib:$RUBYLIB' bin/grundstein add rubocop
+RUBYLIB='/vagrant/lib:$RUBYLIB' USE_GEM_REPO=true bin/grundstein add rubocop # makes the gem find the right lib folder and disables the git updated repo
 ```
 
 ## Publishing
 
 ```bash
+rm grundstein-*.gem
 gem build grundstein.gemspec
-#gem install grundstein
 gem push grundstein-*.gem
+#gem install grundstein
 #gem uninstall grundstein
 ```
 
