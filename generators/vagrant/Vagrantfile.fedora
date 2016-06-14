@@ -12,6 +12,7 @@ sudo systemctl start ntpd
 SCRIPT
 
 DEPS = <<SCRIPT
+# ruby -p -i.bak -e '$_.gsub!(/^(something)/, "#\\1")' /tmp/file
 dnf install -y vim
 dnf install -y ruby ruby-devel rubygem-bundler
 pushd /vagrant
