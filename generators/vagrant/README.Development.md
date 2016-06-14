@@ -1,7 +1,7 @@
 ## Vagrant
 
 This project uses [Vagrant](https://www.vagrantup.com/) to ramp up the development environment.
-This means, that all dependencies for the project are installed in a virtual machine ([Fedora](https://getfedora.org/) 23).
+This means, that all dependencies for the project are installed in a virtual machine (Ubuntu).
 After a little wait for the initial processing of that virtual machine, you run the project within this machine.
 
 Vagrant helps managing this VM, so we have a replicable environment no matter where. It:
@@ -13,30 +13,10 @@ Vagrant helps managing this VM, so we have a replicable environment no matter wh
 
 ### Installation
 
-We need [Vagrant](https://www.vagrantup.com/docs/installation/)] >= 1.7.4. Here how to do it on Fedora or on a Mac:
-
-**On Fedora** we are using libvirt and the [libvirt-plugin](https://github.com/pradels/vagrant-libvirt) with NFS folder sync ([firewall configuration](http://nts.strzibny.name/vagrant-nfs-exports-on-fedora-21/)).
-Please run following commands:
+We need [Vagrant](https://www.vagrantup.com/docs/installation/)] >= 1.7.4. Please also install the [vbguest plugin](https://github.com/dotless-de/vagrant-vbguest) if you use VirtualBox:
 
 ```bash
-dnf install vagrant libxslt-devel libxml2-devel libvirt libvirt-devel libguestfs-tools-c
-vagrant plugin install vagrant-libvirt
-# get the firewall tamed
-sudo firewall-cmd --permanent --add-service=nfs
-sudo firewall-cmd --permanent --add-service=rpc-bind
-sudo firewall-cmd --permanent --add-service=mountd
-sudo firewall-cmd --reload
-# avoid password prompt overtime you breathe
-sudo gpasswd -a ${USER} libvirt
-newgrp libvirt
-```
-
-**On Mac** we are assuming you have [homebrew](http://brew.sh/) and [homebrew cask](http://caskroom.io/) installed.
-Since, the official Fedora box does not pack guest additions, we also install the [vbguest plugin](https://github.com/dotless-de/vagrant-vbguest):
-
-```bash
-brew cask install vagrant
-vagrant plugin install vagrant-vaguest # we need this if we use VirtualBox
+vagrant plugin install vagrant-vaguest # we may this if we use VirtualBox
 ```
 
 ## Getting started
