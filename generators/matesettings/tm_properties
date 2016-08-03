@@ -1,0 +1,5 @@
+# make sure not to use spaces in lists
+# for a list of settings, please see here: http://wiki.macromates.com/Reference/Settings
+# also, see this example: https://gist.github.com/dvessel/1478685
+excludeDirectories = "{tmp,log,}"
+includeFiles = "{.gitignore,.rspec,.rubocop.yml,.gitkeep,.tm_properties}"
