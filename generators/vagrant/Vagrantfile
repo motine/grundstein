@@ -6,6 +6,7 @@ NAME = File.basename(File.dirname(__FILE__)).gsub('_', '-').gsub(/[^\w]/, '')
 
 DEVTOOLS = <<SCRIPT
 apt-get -y install vim man wget
+# apt-get -y install build-essential
 SCRIPT
 
 RUBY_PKG = <<SCRIPT
@@ -31,10 +32,9 @@ bundle install
 SCRIPT
 
 Vagrant.configure("2") do |config|
-  config.vm.box = "ubuntu/xenial64"
+  # config.vm.box = "ubuntu/xenial64"
+  config.vm.box = "ubuntu/vivid64"
   # config.vm.box = "ubuntu/trusty64"
-  # config.vm.box = "ubuntu/vivid64"
-  config.vm.hostname = NAME
 
   config.vm.provision :shell, inline: DEVTOOLS, keep_color: true
   config.vm.provision :shell, inline: RUBY_PKG, keep_color: true
