@@ -21,8 +21,9 @@ SCRIPT
 # RUBY_RVM = <<SCRIPT
 # curl -sSL https://rvm.io/mpapis.asc | gpg --import -
 # curl -sSL https://get.rvm.io | bash -s stable
-# source ~/.rvm/scripts/rvm
-# rvm install ruby-2.2.1
+# source /etc/profile.d/rvm.sh
+# rvm install ruby-2.4.4
+# gem update --system
 # gem install bundler
 # SCRIPT
 
